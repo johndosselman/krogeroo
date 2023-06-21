@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import { useEffect, useState } from "react";
 import { Auth } from "@supabase/auth-ui-react";
-import supabase from "./helper/supabaseClient";
+import supabase from "./supabase/supabaseClient";
 
 const App = () => {
   const [session, setSession] = useState(null);
@@ -36,9 +36,9 @@ const App = () => {
   } else {
     return (
       <>
-        <Navbar context={session} />
+        <Navbar />
         {/* Children */}
-        <Outlet context={session} />
+        <Outlet />
       </>
     );
   }

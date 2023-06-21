@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import supabase from "../../helper/supabaseClient";
+import supabase from "../../supabase/supabaseClient";
 
 const Navbar = () => {
   const handleLogout = async () => {

@@ -1,25 +1,26 @@
-import { useOutletContext } from "react-router-dom";
-import supabase from "../../helper/supabaseClient";
+import supabase from "../../supabase/supabaseClient";
 import { useState } from "react";
 import Favorite from "../../components/favorite/Favorite";
+import getHello from "../../api/endpoints/hello";
+import getStoresByZipcode from "../../api/endpoints/getStoresByZipcode";
+import getKrogerToken from "../../api/endpoints/getKrogerToken";
 
 const Home = () => {
   const [favorites, setFavorites] = useState([]);
+  const [zipcode, setZipcode] = useState();
 
-  const session = useOutletContext();
-
-  const helloWorld = async () => {
-    const { data, error } = await supabase.functions.invoke("hello-world", {
-      body: { name: "Functions" },
-    });
-    console.log(data);
-    console.log(error);
+  const hello = async () => {
+    const res = await getHello();
+    console.log(res);
   };
 
   const insert = async () => {
+    const { data, error } = await supabase.auth.getUser();
+    if (error) throw error;
+    const userId = data.user.id;
     const res = await supabase
       .from("favorite")
-      .insert([{ content: "someValue", user_id: session.user.id }]);
+      .insert([{ content: "someValue", user_id: userId }]);
     console.log(res);
   };
 
@@ -32,11 +33,28 @@ const Home = () => {
     );
   };
 
+  const handleGetKrogerToken = async () => {
+    const res = await getKrogerToken();
+    console.log(res);
+  };
+
+  const handleZipcodeSubmit = async (event) => {
+    event.preventDefault();
+    const response = await getStoresByZipcode(zipcode);
+    console.log(response);
+  };
+
   return (
     <>
       <div>Home</div>
       <button onClick={insert}>Insert</button>
-      <button onClick={helloWorld}>Hello World</button>
+      <button onClick={hello}>Hello</button>
+      <button onClick={handleGetKrogerToken}>Get KrogerToken</button>
+      <form onSubmit={handleZipcodeSubmit}>
+        <input type="number" onChange={(e) => setZipcode(e.target.value)} />
+        <button type="submit">Search</button>
+      </form>
+
       <button onClick={getFavorites}>Get Favorites</button>
       <h1>Favorites</h1>
       {favorites.map((favorite, index) => (
