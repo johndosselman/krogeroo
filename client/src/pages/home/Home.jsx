@@ -10,8 +10,12 @@ const Home = () => {
   const [zipcode, setZipcode] = useState();
 
   const hello = async () => {
-    const res = await getHello();
-    console.log(res);
+    try {
+      const res = await getHello();
+      console.log(res);
+    } catch (error) {
+      console.log("ERROR");
+    }
   };
 
   const insert = async () => {
