@@ -1,18 +1,20 @@
 import express from "express";
-import v1Router from "./routers/v1Router.js";
-import demoRouter from "./routers/demoRouter.js";
+import v1Router from "./routers/v1/v1Router.js";
+import demoRouter from "./routers/demo/demoRouter.js";
 import errorHandlingMiddleware from "./middleware/error-handling/errorHandlingMiddleware.js";
 
 const app = express();
 const port = 3000;
 
-// Handle main request routing
+// Handle main v1 API routing
 app.use("/v1", v1Router);
-// Handle demonstration request routing
+// Handle demo API routing
+// NOTE: The "/demo" router should not be used for a production environment
 app.use("/demo", demoRouter);
 // Handle errors
 app.use(errorHandlingMiddleware);
 
+// Start the server
 app.listen(port, () => {
   console.log(`App listening on port: ${port}`);
 });
