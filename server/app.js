@@ -6,9 +6,9 @@ import errorHandlingMiddleware from "./middleware/error-handling/errorHandlingMi
 const app = express();
 const port = 3000;
 
-// Handle main requests requiring client authentication
+// Handle main request routing
 app.use("/v1", v1Router);
-// Handle demonstration requests
+// Handle demonstration request routing
 app.use("/demo", demoRouter);
 // Handle errors
 app.use(errorHandlingMiddleware);

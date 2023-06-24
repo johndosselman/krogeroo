@@ -1,17 +1,21 @@
 import jwt from "jsonwebtoken";
+import { SupabaseAuthError } from "../../../shared/errors.js";
 
 const supabaseAuthMiddleware = (req, res, next) => {
-  console.log("validating supabase token");
-  const supabaseToken = req.headers.authorization?.split(" ")[1];
-  if (!supabaseToken) {
-    next(new Error("Missing Supabase auth token"));
-  }
-
-  jwt.verify(supabaseToken, process.env.VITE_SUPABASE_SECRET, (error) => {
-    if (error) {
-      next(new Error("Invalid supabase auth token"));
+  try {
+    const supabaseToken = req.headers.authorization?.split(" ")[1];
+    if (!supabaseToken) {
+      throw SupabaseAuthError("Missing Supabase auth token");
     }
-  });
-  next();
+
+    jwt.verify(supabaseToken, process.env.VITE_SUPABASE_SECRET, (error) => {
+      if (error) {
+        throw SupabaseAuthError("Invalid Supabase auth token");
+      }
+    });
+    next();
+  } catch (error) {
+    next(error);
+  }
 };
 export default supabaseAuthMiddleware;

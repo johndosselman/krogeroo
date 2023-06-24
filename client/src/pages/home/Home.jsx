@@ -1,17 +1,15 @@
 import supabase from "../../supabase/supabaseClient";
 import { useState } from "react";
 import Favorite from "../../components/favorite/Favorite";
-import getHello from "../../api/endpoints/hello";
-import getStoresByZipcode from "../../api/endpoints/getStoresByZipcode";
-import getKrogerToken from "../../api/endpoints/getKrogerToken";
+import locationsEndpoint from "../../api/endpoints/locationsEndpoint";
 
 const Home = () => {
   const [favorites, setFavorites] = useState([]);
   const [zipcode, setZipcode] = useState();
 
-  const hello = async () => {
+  const handleCallLocationsEndpoint = async () => {
     try {
-      const res = await getHello();
+      const res = await locationsEndpoint();
       console.log(res);
     } catch (error) {
       console.log("ERROR");
@@ -37,23 +35,19 @@ const Home = () => {
     );
   };
 
-  const handleGetKrogerToken = async () => {
-    const res = await getKrogerToken();
-    console.log(res);
-  };
-
   const handleZipcodeSubmit = async (event) => {
     event.preventDefault();
-    const response = await getStoresByZipcode(zipcode);
-    console.log(response);
+    // const response = await getStoresByZipcode(zipcode);
+    // console.log(response);
   };
 
   return (
     <>
       <div>Home</div>
       <button onClick={insert}>Insert</button>
-      <button onClick={hello}>Hello</button>
-      <button onClick={handleGetKrogerToken}>Get KrogerToken</button>
+      <button onClick={handleCallLocationsEndpoint}>
+        Call Locations Endpoint
+      </button>
       <form onSubmit={handleZipcodeSubmit}>
         <input type="number" onChange={(e) => setZipcode(e.target.value)} />
         <button type="submit">Search</button>
