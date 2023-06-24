@@ -1,5 +1,8 @@
+// NOTE: Kroger API docs @ https://developer.kroger.com/reference/#operation/SearchLocations
+
 import axios from "axios";
 import constants from "../../constants/constants.js";
+import { RequestError } from "../../../shared/errors.js";
 
 // Function to get headers for Kroger locations endpoint request
 const getHeaders = (token) => ({
@@ -10,30 +13,28 @@ const getHeaders = (token) => ({
 
 // Function to get query parameters for Kroger locations endpoint request
 const getLocationsQueryParams = (query) => {
+  const { zipCode, latLong, lat, lon, radius, limit, chain } = query;
   const params = {};
-
-  const entries = Object.entries(query);
-
   // Specify zipcode, latlong, or latitude and longitude as point of origin
-  if (query.zipCode) {
-    params[constants.KROGER.QUERY.ZIPCODE] = query.zipCode;
-  } else if (query.latLong) {
-    params[constants.KROGER.QUERY.LATLONG] = query.latLong;
-  } else if (query.lat && query.lon) {
-    params[constants.KROGER.QUERY.LAT] = query.lat;
-    params[constants.KROGER.QUERY.LON] = query.lon;
+  if (zipCode) {
+    params[constants.KROGER.QUERY.ZIPCODE] = zipCode;
+  } else if (latLong) {
+    params[constants.KROGER.QUERY.LATLONG] = latLong;
+  } else if (lat && lon) {
+    params[constants.KROGER.QUERY.LAT] = lat;
+    params[constants.KROGER.QUERY.LON] = lon;
   }
   // Specify maximum search radius to point of origin (in miles)
-  if (query.radius) {
-    params[constants.KROGER.QUERY.RADIUS] = query.radius;
+  if (radius) {
+    params[constants.KROGER.QUERY.RADIUS] = radius;
   }
   // Specify maximum number of results
-  if (query.limit) {
-    params[constants.KROGER.QUERY.LIMIT] = query.limit;
+  if (limit) {
+    params[constants.KROGER.QUERY.LIMIT] = limit;
   }
   // Specify chain (i.e. Kroger, Frys, etc.)
-  if (query.chain) {
-    params[constants.KROGER.QUERY.CHAIN] = query.chain;
+  if (chain) {
+    params[constants.KROGER.QUERY.CHAIN] = chain;
   }
   // Return query parameters
   return params;
@@ -58,7 +59,8 @@ const getKrogerLocations = async (req, res, next) => {
     // TODO: Implement locations model
     res.send(response.data);
   } catch (error) {
-    next(error);
+    // Throw request error upon failure
+    next(new RequestError());
   }
 };
 

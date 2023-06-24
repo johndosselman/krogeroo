@@ -18,6 +18,7 @@ function deepFreeze(object) {
 
 const constants = {
   // Kroger API constants
+  // NOTE: Check the Kroger docs @ https://developer.kroger.com/reference/
   // NOTE: consider refactoring
   KROGER: {
     BASE_URL: "https://api.kroger.com/v1",

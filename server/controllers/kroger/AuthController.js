@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import { KrogerAuthError } from "../../../shared/errors.js";
 import constants from "../../constants/constants.js";
 
-// Load environment variables
 dotenv.config();
 
 // Function to retrieve Kroger API access token
@@ -12,7 +11,6 @@ const getKrogerAuthToken = async () => {
     // Make a POST request to the Kroger auth endpoint
     const response = await axios.request({
       method: "post",
-      // Use constants to define request parameters
       baseURL: constants.KROGER.BASE_URL,
       url: constants.KROGER.ENDPOINTS.TOKEN,
       headers: constants.KROGER.TOKEN_REQUEST.HEADERS,
