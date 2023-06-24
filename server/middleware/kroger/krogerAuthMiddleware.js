@@ -4,7 +4,7 @@ import getKrogerAuthToken from "../../controllers/kroger/AuthController.js";
 const krogerAuthMiddleware = async (req, res, next) => {
   try {
     // Get Kroger API access token
-    req.token = getKrogerAuthToken();
+    req.token = await getKrogerAuthToken();
     next();
   } catch (error) {
     next(error);

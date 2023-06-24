@@ -42,16 +42,23 @@ const constants = {
     },
     // Kroger query parameters
     QUERY: {
+      // Shared query parameters
+      LIMIT: "filter.limit",
+      LOCATION_ID: "filter.locationId",
       // Locations endpoint query parameters
       ZIPCODE: "filter.zipCode.near",
       LATLONG: "filter.latLong.near",
       LAT: "filter.lat.near",
       LON: "filter.lon.near",
       RADIUS: "filter.radiusInMiles",
-      LIMIT: "filter.limit",
       CHAIN: "filter.chain",
+      DEPARTMENT: "filter.department",
       // Products endpoint query parameters
-      // TODO: Add query parameters for products endpoint
+      TERM: "filter.term",
+      PRODUCT_ID: "filter.productId",
+      BRAND: "filter.brand",
+      FULFILLMENT: "filter.fulfillment",
+      START: "filter.start",
     },
   },
 };

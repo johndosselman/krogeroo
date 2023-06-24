@@ -3,7 +3,7 @@ import constants from "../../constants/constants.js";
 
 // Function to get headers for Kroger locations endpoint request
 const getHeaders = (token) => ({
-  accept: "application/json",
+  Accept: "application/json",
   // Use bearer authentication with provided token
   Authorization: `Bearer ${token}`,
 });
@@ -11,6 +11,9 @@ const getHeaders = (token) => ({
 // Function to get query parameters for Kroger locations endpoint request
 const getLocationsQueryParams = (query) => {
   const params = {};
+
+  const entries = Object.entries(query);
+
   // Specify zipcode, latlong, or latitude and longitude as point of origin
   if (query.zipCode) {
     params[constants.KROGER.QUERY.ZIPCODE] = query.zipCode;
