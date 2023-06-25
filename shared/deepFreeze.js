@@ -1,5 +1,5 @@
 // Function to freeze objects recursively
-function deepFreeze(object) {
+const deepFreeze = (object) => {
   // Get property names of the object
   const propertyNames = Object.getOwnPropertyNames(object);
   // For each property name,
@@ -14,6 +14,6 @@ function deepFreeze(object) {
   }
   // Freeze and return the object
   return Object.freeze(object);
-}
+};
 
-export default deepFreeze();
+export default deepFreeze;

@@ -1,4 +1,4 @@
-import deepFreeze from "./deepFreeze";
+import deepFreeze from "./deepFreeze.js";
 
 const sharedConstants = {
   ENDPOINTS: {
@@ -26,5 +26,4 @@ const sharedConstants = {
 };
 
 deepFreeze(sharedConstants);
-
 export default sharedConstants;
