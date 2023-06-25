@@ -3,6 +3,7 @@
 import axios from "axios";
 import constants from "../../constants/constants.js";
 import { RequestError } from "../../../shared/errors.js";
+import sharedConstants from "../../../shared/sharedConstants.js";
 
 // Function to get headers for Kroger locations endpoint request
 const getHeaders = (token) => ({
@@ -12,8 +13,18 @@ const getHeaders = (token) => ({
 });
 
 // Function to get query parameters for Kroger locations endpoint request
+// NOTE: Consider refactor
 const getLocationsQueryParams = (query) => {
-  const { zipCode, latLong, lat, lon, radius, limit, chain } = query;
+  // Destructure query object and extract values
+  const {
+    [sharedConstants.QUERY.ZIPCODE]: zipCode,
+    [sharedConstants.QUERY.LATLONG]: latLong,
+    [sharedConstants.QUERY.LAT]: lat,
+    [sharedConstants.QUERY.LON]: lon,
+    [sharedConstants.QUERY.RADIUS]: radius,
+    [sharedConstants.QUERY.LIMIT]: limit,
+    [sharedConstants.QUERY.CHAIN]: chain,
+  } = query;
   const params = {};
   // Specify zipcode, latlong, or latitude and longitude as point of origin
   if (zipCode) {

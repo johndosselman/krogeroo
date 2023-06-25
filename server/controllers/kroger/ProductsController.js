@@ -3,7 +3,7 @@
 import axios from "axios";
 import { RequestError } from "../../../shared/errors.js";
 import constants from "../../constants/constants.js";
-
+import sharedConstants from "../../../shared/sharedConstants.js";
 // Function to get headers for product request using Kroger API auth token
 const getHeaders = (token) => ({
   Accept: "application/json",
@@ -11,9 +11,17 @@ const getHeaders = (token) => ({
 });
 
 // Function to get query parameters for product request
+// NOTE: consider refactor
 const getProductQueryParams = (query) => {
-  const { limit, locationId, term, productId, brand, fulfillment, start } =
-    query;
+  const {
+    [sharedConstants.QUERY.LIMIT]: limit,
+    [sharedConstants.QUERY.LOCATION_ID]: locationId,
+    [sharedConstants.QUERY.TERM]: term,
+    [sharedConstants.QUERY.PRODUCT_ID]: productId,
+    [sharedConstants.QUERY.BRAND]: brand,
+    [sharedConstants.QUERY.FULFILLMENT]: fulfillment,
+    [sharedConstants.QUERY.START]: start,
+  } = query;
   const params = {};
   // Add limit to maximum number of products returned
   if (limit) {

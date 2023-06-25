@@ -1,8 +1,11 @@
+// Note: See the Kroger client access token docs @ https://developer.kroger.com/reference/#operation/accessToken
+
 import axios from "axios";
 import dotenv from "dotenv";
 import { KrogerAuthError } from "../../../shared/errors.js";
 import constants from "../../constants/constants.js";
 
+// Load environent variables
 dotenv.config();
 
 // Function to retrieve Kroger API access token
