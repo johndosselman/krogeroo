@@ -1,3 +1,5 @@
+import deepFreeze from "./deepFreeze";
+
 const sharedConstants = {
   ENDPOINTS: {
     LOCATION_SEARCH: "/location",
@@ -22,5 +24,7 @@ const sharedConstants = {
     START: "start",
   },
 };
+
+deepFreeze(sharedConstants);
 
 export default sharedConstants;
