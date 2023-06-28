@@ -1,8 +1,9 @@
 import deepFreeze from "./deepFreeze.js";
 
 const sharedConstants = {
+  BASE_URL: "/api/v1/kroger",
   ENDPOINTS: {
-    LOCATION_SEARCH: "/location",
+    LOCATION_SEARCH: "/locations",
     PRODUCT_SEARCH: "/products",
   },
   QUERY: {

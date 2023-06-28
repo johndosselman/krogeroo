@@ -3,7 +3,7 @@ import deepFreeze from "../../shared/deepFreeze.js";
 const constants = {
   // Kroger API constants
   // NOTE: Check the Kroger docs @ https://developer.kroger.com/reference/
-  // NOTE: consider refactoring
+  // NOTE: consider refactor
   KROGER: {
     BASE_URL: "https://api.kroger.com/v1",
     // Kroger API endpoints
