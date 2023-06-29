@@ -42,6 +42,11 @@ const LocationSelect = () => {
       }
     );
   };
+
+  const handleStoreSelect = async (locationId) => {
+    console.log(locationId);
+  };
+
   return (
     <>
       <h1>Search for locations by zip code</h1>
@@ -67,10 +72,13 @@ const LocationSelect = () => {
         return (
           <Store
             key={key}
-            address={item.address.addressLine1}
-            phone={item.phone}
             name={item.name}
-            onClick={console.log("click")}
+            addressLine1={item.address.addressLine1}
+            city={item.address.city}
+            state={item.address.state}
+            zipCode={item.address.zipCode}
+            locationId={item.locationId}
+            select={handleStoreSelect}
           />
         );
       })}
