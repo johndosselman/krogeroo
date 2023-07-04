@@ -14,6 +14,10 @@ const router = createBrowserRouter([
         path: "",
         element: <Home />,
       },
+      {
+        path: "lists/:listId",
+        // TODO: add list element
+      },
     ],
   },
 ]);
