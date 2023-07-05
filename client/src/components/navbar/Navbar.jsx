@@ -7,10 +7,10 @@ const Navbar = () => {
   };
 
   return (
-    <>
+    <nav className="navbar">
       <Link to={"/"}>Home</Link>
       <button onClick={handleLogout}>Logout</button>
-    </>
+    </nav>
   );
 };
 

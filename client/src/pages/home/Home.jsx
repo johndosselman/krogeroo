@@ -26,7 +26,7 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div className="home">
       <div>Home</div>
       <LocationSelect />
       <button onClick={insert}>Insert</button>
@@ -35,7 +35,7 @@ const Home = () => {
       {favorites.map((favorite, index) => (
         <Favorite key={index} content={favorite} />
       ))}
-    </>
+    </div>
   );
 };
 

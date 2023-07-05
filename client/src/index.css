@@ -1,3 +1,30 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  padding: 0.5rem;
+}
+input {
+  padding: 0.5rem;
+}
+
 button:hover {
   cursor: pointer;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: aqua;
+  padding: 1rem;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
