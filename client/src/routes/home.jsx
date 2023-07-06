@@ -1,6 +1,6 @@
 import supabase from "../supabase/supabaseClient";
 import { useState } from "react";
-import Favorite from "../components/favorite/favorite";
+import Favorite from "../components/favorite";
 import LocationSelect from "../components/locationSelect";
 
 const Home = () => {
