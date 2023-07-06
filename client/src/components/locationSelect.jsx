@@ -1,6 +1,6 @@
 import { useState } from "react";
-import getLocations from "../../services/locations/locationsAPI";
-import sharedConstants from "../../../../shared/sharedConstants";
+import getLocations from "../services/locations/locationsAPI";
+import sharedConstants from "../../../shared/sharedConstants";
 import Store from "./store";
 
 const LocationSelect = () => {

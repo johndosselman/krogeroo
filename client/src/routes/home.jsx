@@ -1,7 +1,7 @@
-import supabase from "../../supabase/supabaseClient";
+import supabase from "../supabase/supabaseClient";
 import { useState } from "react";
-import Favorite from "../../components/favorite/Favorite";
-import LocationSelect from "../../components/location/LocationSelect";
+import Favorite from "../components/favorite/favorite";
+import LocationSelect from "../components/locationSelect";
 
 const Home = () => {
   const [favorites, setFavorites] = useState([]);
