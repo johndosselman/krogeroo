@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
 import Home from "./routes/home";
+import Lists from "./routes/Lists";
 
 const router = createBrowserRouter([
   {
@@ -15,8 +16,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "lists/:listId",
-        // TODO: add list element
+        path: "lists/",
+        element: <Lists />,
       },
     ],
   },
