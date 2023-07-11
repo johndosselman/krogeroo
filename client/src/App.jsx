@@ -20,10 +20,9 @@ const App = () => {
 
     return () => subscription.unsubscribe();
   }, []);
-
+  // If there is no active session, return the Supabase Auth component
   if (!session) {
     return (
-      // Supabase UI Auth component with custom classes
       <Auth
         supabaseClient={supabase}
         providers={[]}
@@ -33,6 +32,7 @@ const App = () => {
         }}
       />
     );
+    // Else return the app
   } else {
     return (
       <>
