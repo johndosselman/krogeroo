@@ -1,9 +1,9 @@
 // NOTE: Kroger API docs @ https://developer.kroger.com/reference/#operation/productGet
 
 import axios from "axios";
-import { RequestError } from "../../../shared/errors.js";
+import { RequestError } from "../../shared/errors.js";
 import constants from "../../constants/constants.js";
-import sharedConstants from "../../../shared/sharedConstants.js";
+import sharedConstants from "../../shared/sharedConstants.js";
 
 // Function to get headers for product request using Kroger API auth token
 const getHeaders = (token) => ({

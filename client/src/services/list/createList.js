@@ -7,12 +7,16 @@ async function getUser() {
   return data.user.id;
 }
 
-// Function to create a list
+// Function to create a list in supabase
 // TODO: Implement better error handling
-async function createList() {
+const createList = async () => {
   const userId = await getUser();
-  const { error } = await supabase.from("list").insert({ user_id: userId });
+  const { data, error } = await supabase
+    .from("list")
+    .insert({ user_id: userId })
+    .select();
   if (error) throw new Error("Failed to create new list");
-}
+  return data[0];
+};
 
-export default createList();
+export default createList;

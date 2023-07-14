@@ -7,10 +7,10 @@ const app = express();
 const port = 3000;
 
 // Handle main v1 API routing
-app.use("/v1", v1Router);
+app.use("/api/v1", v1Router);
 // Handle demo API routing
 // NOTE: The "/demo" router should not be used for a production environment
-app.use("/demo", demoRouter);
+app.use("/api/demo", demoRouter);
 // Handle errors
 app.use(errorHandlingMiddleware);
 

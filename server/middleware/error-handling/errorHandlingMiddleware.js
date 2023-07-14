@@ -3,7 +3,7 @@ import {
   KrogerAuthError,
   RequestError,
   InternalServerError,
-} from "../../../shared/errors.js";
+} from "../../shared/errors.js";
 
 // Error-handling middleware
 // NOTE: Error-handling middleware in Express accepts four arguments, the additional first argument being the error

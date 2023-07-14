@@ -5,19 +5,26 @@ import "./index.css";
 import App from "./App.jsx";
 import Home from "./routes/home";
 import Lists from "./routes/Lists";
+import Error from "./routes/error";
+import EditList from "./routes/editList";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <Error />,
     children: [
       {
         path: "",
         element: <Home />,
       },
       {
-        path: "lists/",
+        path: "lists",
         element: <Lists />,
+      },
+      {
+        path: "lists/:listId/edit",
+        element: <EditList />,
       },
     ],
   },

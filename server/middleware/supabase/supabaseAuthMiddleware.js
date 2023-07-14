@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { SupabaseAuthError } from "../../../shared/errors.js";
+import { SupabaseAuthError } from "../../shared/errors.js";
 
 // Supabase client authentication middleware
 const supabaseAuthMiddleware = (req, res, next) => {

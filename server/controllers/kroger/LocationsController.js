@@ -2,8 +2,8 @@
 
 import axios from "axios";
 import constants from "../../constants/constants.js";
-import { RequestError } from "../../../shared/errors.js";
-import sharedConstants from "../../../shared/sharedConstants.js";
+import { RequestError } from "../../shared/errors.js";
+import sharedConstants from "../../shared/sharedConstants.js";
 
 // Function to get headers for Kroger locations endpoint request
 const getHeaders = (token) => ({

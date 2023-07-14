@@ -1,4 +1,4 @@
-import deepFreeze from "../../shared/deepFreeze.js";
+import deepFreeze from "../shared/deepFreeze.js";
 
 const constants = {
   // Kroger API constants

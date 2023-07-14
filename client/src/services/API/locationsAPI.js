@@ -1,5 +1,5 @@
 import getSupabaseToken from "../../supabase/getSupabaseToken";
-import sharedConstants from "../../../../shared/sharedConstants";
+import sharedConstants from "../../../../server/shared/sharedConstants";
 import axios from "axios";
 
 // Function to make request to locations endpoint

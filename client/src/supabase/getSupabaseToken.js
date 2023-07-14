@@ -1,5 +1,5 @@
 import supabase from "./supabaseClient";
-import { SupabaseAuthError } from "../../../shared/errors";
+import { SupabaseAuthError } from "../../../server/shared/errors";
 
 // Function to retrieve client Supabase token for API request authorization
 const getSupabaseToken = async () => {

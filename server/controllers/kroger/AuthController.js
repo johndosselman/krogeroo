@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import dotenv from "dotenv";
-import { KrogerAuthError } from "../../../shared/errors.js";
+import { KrogerAuthError } from "../../shared/errors.js";
 import constants from "../../constants/constants.js";
 
 // Load environent variables
