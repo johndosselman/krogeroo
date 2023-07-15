@@ -1,7 +1,24 @@
-const CHAINS = {
+export const CHAINS = {
   KROGER: "KROGER",
   MARIANOS: "MARIANOS",
   FRYS: "FRYS",
 };
 
-export default CHAINS;
+export const QUERY = {
+  // Shared endpoint query parameters
+  LIMIT: "limit",
+  LOCATION_ID: "locationId",
+  // Locations endpoint query parameters
+  ZIPCODE: "zipCode",
+  LATLONG: "latLong",
+  LAT: "lat",
+  LON: "lon",
+  RADIUS: "radius",
+  CHAIN: "chain",
+  // Products endpoint query parameters
+  TERM: "term",
+  PRODUCT_ID: "productId",
+  BRAND: "brand",
+  FULFILLMENT: "fulfillment",
+  START: "start",
+};
