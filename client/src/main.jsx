@@ -7,6 +7,7 @@ import Home from "./routes/home";
 import Lists from "./routes/Lists";
 import Error from "./routes/error";
 import EditList from "./routes/editList";
+import NewList from "./routes/NewList";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "lists",
         element: <Lists />,
+      },
+      {
+        path: "lists/new",
+        element: <NewList />,
       },
       {
         path: "lists/:listId/edit",
