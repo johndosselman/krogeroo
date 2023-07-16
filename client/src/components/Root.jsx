@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "./components/navbar";
+import Navbar from "./navbar";
 import { useEffect, useState } from "react";
 import { Auth } from "@supabase/auth-ui-react";
-import supabase from "./supabase/supabaseClient";
+import supabase from "../supabase/supabaseClient";
 
-const App = () => {
+const Root = () => {
   const [session, setSession] = useState(null);
 
   useEffect(() => {
@@ -44,4 +44,4 @@ const App = () => {
   }
 };
 
-export default App;
+export default Root;
