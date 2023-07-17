@@ -5,16 +5,13 @@ import { useState } from "react";
 import Store from "./store";
 
 export const loader = ({ params }) => {
-  const chain = params.chain.toUpperCase();
-  if (!CHAINS.hasOwn(chain)) {
-    throw new Response("", { status: 404, statusText: "Not Found" });
-  }
-  console.log(chain);
+  const chain = params.chain;
   return chain;
 };
 
 const LocationSelect = () => {
   const chain = useLoaderData();
+  if (!(chain in CHAINS)) throw new Error("Invalid chain");
   const [zipcode, setZipcode] = useState("");
   const [locationList, setLocationList] = useState([]);
 
@@ -22,10 +19,10 @@ const LocationSelect = () => {
     event.preventDefault();
     const params = {
       [QUERY.ZIPCODE]: zipcode,
-      [QUERY.RADIUS]: 1,
     };
-    const locations = await getLocations(params);
+    const { locations, error } = await getLocations(params);
     console.log(locations);
+    if (locations) setLocationList(locations);
   };
 
   const handleZipcodeInputChange = (event) => {
@@ -57,11 +54,12 @@ const LocationSelect = () => {
   const handleStoreSelect = async (locationId) => {
     console.log(locationId);
   };
+
   return (
     <>
       <div>
         <h2>{chain}</h2>
-        <h2>Search for locations by zip code</h2>
+        <h3>Search for locations by zip code</h3>
         <form onSubmit={handleSearchByZipcode}>
           <input
             type="text"
@@ -73,7 +71,7 @@ const LocationSelect = () => {
         </form>
         {"geolocation" in navigator && (
           <>
-            <h1>Or search by your location</h1>
+            <h3>Or search by your location</h3>
             <button onClick={handleSearchByLocation}>
               Search by location!
             </button>

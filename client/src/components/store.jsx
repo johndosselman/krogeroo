@@ -13,7 +13,7 @@ const Store = ({
   return (
     <div>
       <button onClick={handleClick} style={{ backgroundColor: "pink" }}>
-        <h2>{name}</h2>
+        <h4>{name}</h4>
         <p>{addressLine1}</p>
         <p>{`${city}, ${state} ${zipCode}`}</p>
       </button>

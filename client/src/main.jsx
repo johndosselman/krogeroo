@@ -14,7 +14,6 @@ import EditList from "./components/EditList";
 import NewList from "./components/NewList";
 import ChainSelect from "./components/ChainSelect";
 import LocationSelect from "./components/LocationSelect";
-import { loader as locationSelectLoader } from "./components/LocationSelect";
 
 const router = createBrowserRouter([
   {
@@ -36,14 +35,14 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            loader: () => redirect("/lists/new/chain-select"),
+            loader: () => redirect("/lists/new/chain"),
           },
           {
-            path: "chain-select",
+            path: "chain",
             element: <ChainSelect />,
           },
           {
-            path: "location-select/:chain",
+            path: "chain/:chain",
             element: <LocationSelect />,
             loader: ({ params }) => params.chain,
           },

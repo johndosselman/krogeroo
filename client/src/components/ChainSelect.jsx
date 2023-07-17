@@ -5,13 +5,14 @@ const ChainSelect = () => {
   const navigate = useNavigate();
 
   const handleSelectChain = (chain) => {
-    navigate(`/lists/new/location-select/${chain.toLowerCase()}`);
+    navigate(`/lists/new/chain/${chain}`);
   };
 
   return (
     <>
       <div>
         <h2>select chain</h2>
+
         <button onClick={() => handleSelectChain(CHAINS.KROGER)}>Kroger</button>
         <button onClick={() => handleSelectChain(CHAINS.MARIANOS)}>
           Mariano&apos;s
