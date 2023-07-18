@@ -1,4 +1,4 @@
-import getKrogerAuthToken from "../../controllers/kroger/AuthController.js";
+import getKrogerAuthToken from "../../controllers/kroger/authController.js";
 
 // Kroger authentication middleware
 const krogerAuthMiddleware = async (req, res, next) => {

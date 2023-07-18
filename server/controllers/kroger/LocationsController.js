@@ -4,13 +4,7 @@ import axios from "axios";
 import constants from "../../constants/constants.js";
 import { RequestError } from "../../shared/errors.js";
 import sharedConstants from "../../shared/sharedConstants.js";
-
-// Function to get headers for Kroger locations endpoint request
-const getHeaders = (token) => ({
-  Accept: "application/json",
-  // Use bearer authentication with provided token
-  Authorization: `Bearer ${token}`,
-});
+import getKrogerHeaders from "../../helpers/getKrogerHeaders.js";
 
 // Function to get query parameters for Kroger locations endpoint request
 // NOTE: Consider refactor
@@ -57,7 +51,7 @@ const getKrogerLocations = async (req, res, next) => {
     // Get the query parameters
     const params = getLocationsQueryParams(req.query);
     // Get the headers using provided token
-    const headers = getHeaders(req.token);
+    const headers = getKrogerHeaders(req.token);
     // Send the request
     const response = await axios.request({
       method: "get",

@@ -1,5 +1,5 @@
-import { useLoaderData } from "react-router-dom";
-import getLocations from "../services/API/locationsAPI";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { getLocations } from "../services/API/locationsAPI";
 import Location from "./Location";
 
 export const loader = async ({ request }) => {
@@ -10,10 +10,11 @@ export const loader = async ({ request }) => {
 };
 
 const SearchLocations = () => {
+  const navigate = useNavigate();
   const { locations, error } = useLoaderData();
 
-  const handleStoreSelect = (locationId) => {
-    console.log(locationId);
+  const handleLocationSelect = (locationId) => {
+    navigate(`../location/${locationId}`);
   };
 
   if (error) {
@@ -30,7 +31,7 @@ const SearchLocations = () => {
         state={item.address.state}
         zipCode={item.address.zipCode}
         locationId={item.locationId}
-        handleClick={handleStoreSelect}
+        handleClick={handleLocationSelect}
       />
     ));
   }

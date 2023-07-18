@@ -8,6 +8,9 @@ import EditList from "../components/EditList";
 import SearchLocations, {
   loader as searchLocationsLoader,
 } from "../components/SearchLocations";
+import NewListByLocation, {
+  loader as newListByLocationLoader,
+} from "../components/NewListByLocation";
 
 const router = createBrowserRouter([
   {
@@ -34,11 +37,12 @@ const router = createBrowserRouter([
           },
           {
             path: "location/:locationId",
-            //element: <NewListFromLocation />,
+            element: <NewListByLocation />,
+            loader: newListByLocationLoader,
           },
           {
             path: "blueprint/:blueprintId",
-            //element: <NewListFromBlueprint />,
+            //element: <NewListByBlueprint />,
           },
         ],
       },
