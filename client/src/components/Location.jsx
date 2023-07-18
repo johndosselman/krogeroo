@@ -1,18 +1,18 @@
-const Store = ({
+const Location = ({
   name,
   addressLine1,
   city,
   state,
   zipCode,
   locationId,
-  select,
+  handleClick,
 }) => {
-  const handleClick = () => {
-    select(locationId);
-  };
   return (
     <div>
-      <button onClick={handleClick} style={{ backgroundColor: "pink" }}>
+      <button
+        onClick={() => handleClick(locationId)}
+        style={{ backgroundColor: "pink" }}
+      >
         <h4>{name}</h4>
         <p>{addressLine1}</p>
         <p>{`${city}, ${state} ${zipCode}`}</p>
@@ -21,4 +21,4 @@ const Store = ({
   );
 };
 
-export default Store;
+export default Location;
