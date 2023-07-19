@@ -1,4 +1,4 @@
-const Location = ({
+const StoreLocation = ({
   name,
   addressLine1,
   city,
@@ -21,4 +21,4 @@ const Location = ({
   );
 };
 
-export default Location;
+export default StoreLocation;

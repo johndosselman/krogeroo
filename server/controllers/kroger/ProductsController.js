@@ -66,7 +66,7 @@ const getProducts = async (req, res, next) => {
     // Get parameters
     const params = getProductQueryParams(req.query);
     // Make GET request to Kroger API
-    const response = await axios.request({
+    const { data } = await axios.request({
       method: "get",
       baseURL: constants.KROGER.BASE_URL,
       url: constants.KROGER.ENDPOINTS.PRODUCTS,
@@ -75,7 +75,8 @@ const getProducts = async (req, res, next) => {
     });
     // Send response data to the client
     // NOTE: Implement product model
-    res.send(response.data);
+    console.log(data.data);
+    res.send(data.data);
   } catch (error) {
     // Request error upon failed request
     next(new RequestError());
