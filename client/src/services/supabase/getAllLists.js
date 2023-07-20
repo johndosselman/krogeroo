@@ -1,9 +1,9 @@
-import getUser from "./getUser";
+import getUserId from "./getUserId";
 import supabase from "./supabaseClient";
 
 const getAllLists = async () => {
   try {
-    const userId = await getUser();
+    const userId = await getUserId();
     const { data, error } = await supabase
       .from("list")
       .select("id")

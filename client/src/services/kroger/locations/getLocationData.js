@@ -8,13 +8,12 @@ const getLocationData = async (params) => {
     if (!locationId) throw new Error("No locationId provided");
     const token = await getSupabaseToken();
     // Send request
-    const response = await api.get(`${URL_LOCATIONS}/${locationId}`, {
+    const { data } = await api.get(`${URL_LOCATIONS}/${locationId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    const location = response.data.data;
-    return { location: location, error: null };
+    return { location: data, error: null };
   } catch (error) {
-    return { location: null, error: error };
+    return { location: null, error };
   }
 };
 

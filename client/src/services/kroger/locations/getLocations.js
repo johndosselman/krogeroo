@@ -10,15 +10,13 @@ export const getLocations = async (params) => {
     if (!zipCode && !latLong) throw new Error("No location provided");
     const filteredParams = { chain, zipCode, latLong };
     const token = await getSupabaseToken();
-    const response = await api.get(URL_LOCATIONS, {
+    const { data } = await api.get(URL_LOCATIONS, {
       params: filteredParams,
       headers: { Authorization: `Bearer ${token}` },
     });
-
-    const locations = response.data.data;
-    return { locations: locations, error: null };
+    return { locations: data, error: null };
   } catch (error) {
-    return { locations: null, error: error };
+    return { locations: null, error };
   }
 };
 

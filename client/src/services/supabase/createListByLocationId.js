@@ -1,10 +1,10 @@
 import supabase from "./supabaseClient";
-import getUser from "./getUser";
+import getUserId from "./getUserId";
 // Function to create a list in supabase
 // TODO: Implement better error handling
-const createList = async (locationId) => {
+const createListByLocationId = async (locationId) => {
   try {
-    const userId = await getUser();
+    const userId = await getUserId();
     const { data, error } = await supabase
       .from("list")
       .insert({ user_id: userId, location_id: locationId })
@@ -12,8 +12,8 @@ const createList = async (locationId) => {
     const listId = data[0].id;
     return { listId, error };
   } catch (error) {
-    return { error };
+    return { listId: null, error };
   }
 };
 
-export default createList;
+export default createListByLocationId;

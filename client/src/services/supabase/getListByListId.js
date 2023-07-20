@@ -9,7 +9,7 @@ const getList = async (listId) => {
     const list = data[0];
     return { list, error };
   } catch (error) {
-    return { error };
+    return { list: null, error };
   }
 };
 export default getList;

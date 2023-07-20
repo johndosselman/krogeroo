@@ -53,7 +53,7 @@ const getKrogerLocations = async (req, res, next) => {
     // Get the headers using provided token
     const headers = getKrogerHeaders(req.token);
     // Send the request
-    const response = await axios.request({
+    const { data } = await axios.request({
       method: "get",
       baseURL: constants.KROGER.BASE_URL,
       url: constants.KROGER.ENDPOINTS.LOCATIONS,
@@ -62,7 +62,7 @@ const getKrogerLocations = async (req, res, next) => {
     });
     // Send the response data to the client
     // TODO: Implement locations model
-    res.send(response.data);
+    res.send(data.data);
   } catch (error) {
     // Throw request error upon failure
     next(new RequestError());

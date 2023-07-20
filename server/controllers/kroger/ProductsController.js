@@ -4,12 +4,7 @@ import axios from "axios";
 import { RequestError } from "../../shared/errors.js";
 import constants from "../../constants/constants.js";
 import sharedConstants from "../../shared/sharedConstants.js";
-
-// Function to get headers for product request using Kroger API auth token
-const getHeaders = (token) => ({
-  Accept: "application/json",
-  Authorization: `Bearer ${token}`,
-});
+import getKrogerHeaders from "../../helpers/getKrogerHeaders.js";
 
 // Function to get query parameters for product request
 // NOTE: consider refactor
@@ -61,11 +56,8 @@ const getProductQueryParams = (query) => {
 // Function to get list of products from Kroger "/products" endpoint
 const getProducts = async (req, res, next) => {
   try {
-    // Get headers
-    const headers = getHeaders(req.token);
-    // Get parameters
+    const headers = getKrogerHeaders(req.token);
     const params = getProductQueryParams(req.query);
-    // Make GET request to Kroger API
     const { data } = await axios.request({
       method: "get",
       baseURL: constants.KROGER.BASE_URL,
@@ -75,7 +67,7 @@ const getProducts = async (req, res, next) => {
     });
     // Send response data to the client
     // NOTE: Implement product model
-    console.log(data.data);
+    console.log(data.meta);
     res.send(data.data);
   } catch (error) {
     // Request error upon failed request

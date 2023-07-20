@@ -11,13 +11,13 @@ const getKrogerLocationData = async (req, res, next) => {
       `${constants.KROGER.BASE_URL}${constants.KROGER.ENDPOINTS.LOCATIONS}/${locationId}`
     );
     const headers = getKrogerHeaders(req.token);
-    const response = await axios.request({
+    const { data } = await axios.request({
       method: "get",
       baseURL: constants.KROGER.BASE_URL,
       url: `${constants.KROGER.ENDPOINTS.LOCATIONS}/${locationId}`,
       headers: headers,
     });
-    res.send(response.data);
+    res.send(data.data);
   } catch (error) {
     next(new RequestError());
   }

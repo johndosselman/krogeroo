@@ -2,21 +2,24 @@ import api from "../api/api";
 import { URL_PRODUCTS } from "../../../constants/constants";
 import getSupabaseToken from "../../supabase/getSupabaseToken";
 
-const getProductsByTerm = async (term) => {
+const getProductsByTerm = async (params) => {
   try {
+    const { term, locationId } = params;
     if (!term) {
       throw new Error("No term provided");
     }
+    if (!locationId) {
+      throw new Error("No locationId provided");
+    }
     const token = await getSupabaseToken();
-    const response = await api.get(URL_PRODUCTS, {
+    const { data } = await api.get(URL_PRODUCTS, {
       headers: { Authorization: `Bearer ${token}` },
-      params: { term },
+      params: { term, limit: 50, locationId },
     });
-
-    console.log(response.data.data);
+    return { products: data, error: null };
   } catch (error) {
     // TODO: error handling
-    return {};
+    return { products: null, error };
   }
 };
 

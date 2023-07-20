@@ -8,7 +8,7 @@ import { getLocations } from "../services/kroger/locations/getLocations";
 import StoreLocation from "./StoreLocation";
 import { useState } from "react";
 import { CHAINS, QUERY } from "../constants/constants";
-import createList from "../services/supabase/createList";
+import createListByLocationId from "../services/supabase/createListByLocationId";
 
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
@@ -53,7 +53,7 @@ const SearchLocations = () => {
   };
 
   const handleLocationSelect = async (locationId) => {
-    const { listId, error } = await createList(locationId);
+    const { listId, error } = await createListByLocationId(locationId);
     // TODO: error handling
     if (error) {
       console.log(error);
@@ -93,6 +93,7 @@ const SearchLocations = () => {
       </Form>
       {searchParams.size > 0 &&
         (error ? (
+          // TODO: handle Error
           <h1>ERROR</h1>
         ) : locations && locations.length > 0 ? (
           locations.map((item, key) => (
@@ -108,6 +109,7 @@ const SearchLocations = () => {
             />
           ))
         ) : (
+          // TODO: handle no results
           <h1>NO RESULTS</h1>
         ))}
     </>
