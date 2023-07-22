@@ -1,38 +1,50 @@
 import { useLoaderData } from "react-router-dom";
-import getListByListId from "../services/supabase/getListByListId";
-import getLocationData from "../services/kroger/locations/getLocationData";
+import getListDataById from "../services/supabase/getListDataById";
 import { useEffect, useState } from "react";
 import getProductsByTerm from "../services/kroger/products/getProductsByTerm";
 import SearchProduct from "./SearchProduct";
+import updateListName from "../services/supabase/updateListName";
 
 export const loader = async ({ params }) => {
   const { listId } = params;
-  const { list, error } = await getListByListId(listId);
-  const { location } = await getLocationData({
-    locationId: list.location_id,
-  });
-  return { location, list, error };
+  const { listData, error } = await getListDataById(listId);
+  return { listData, error };
 };
 
 const List = () => {
-  const { location, list, error } = useLoaderData();
+  const { listData, error } = useLoaderData();
+  const { name: initialListName, location, id } = listData;
+
   const [searchValue, setSearchValue] = useState("");
   const [searchProducts, setSearchProducts] = useState([]);
-  useEffect(() => {
-    const delay = setTimeout(async () => {
-      const { products, error } = await getProductsByTerm({
-        term: searchValue,
-        locationId: location.locationId,
+  const [listName, setListName] = useState(initialListName);
+  const [listNameTimeout, setListNameTimeout] = useState(null);
+
+  const handleChangeListName = async (e) => {
+    setListName(e.target.value);
+
+    if (listNameTimeout) {
+      clearTimeout(listNameTimeout);
+    }
+    const timeout = setTimeout(async () => {
+      const { error } = await updateListName({
+        listId: id,
+        listName: e.target.value,
       });
-      //TODO: error handling
-      if (error) console.log(error);
-      if (products) {
-        console.log(products);
-        setSearchProducts(products);
+      // handle error
+      if (error) console.log("failed to update list name");
+    }, 500);
+
+    setListNameTimeout(timeout);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (listNameTimeout) {
+        clearTimeout(listNameTimeout);
       }
-    }, 300);
-    return () => clearTimeout(delay);
-  }, [searchValue, location.locationId]);
+    };
+  }, [listNameTimeout]);
 
   const handleSearchValueChange = (e) => {
     setSearchValue(e.target.value);
@@ -41,14 +53,13 @@ const List = () => {
     // TODO: error handling
     return <h1>ERROR</h1>;
   }
-  if (location && list) {
+  if (location && typeof listName === "string") {
     return (
       <>
-        <h1>{location.name}</h1>
+        <input type="text" value={listName} onChange={handleChangeListName} />
 
         <input
           type="search"
-          name=""
           value={searchValue}
           onChange={handleSearchValueChange}
         />

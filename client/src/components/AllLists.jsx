@@ -1,17 +1,18 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import getAllLists from "../services/supabase/getAllLists";
 
 export const loader = async () => {
-  const { data, error } = await getAllLists();
-  return { data, error };
+  const { lists, error } = await getAllLists();
+  return { lists, error };
 };
 
 const AllLists = () => {
-  const { data, error } = useLoaderData();
-  console.log(data);
-  console.log(error);
+  const { lists, error } = useLoaderData();
   const navigate = useNavigate();
-
+  if (!lists || error) {
+    // TODO: Handle error
+    throw new Error("failed to retrieve lists");
+  }
   return (
     <>
       <h1>Lists</h1>
@@ -22,7 +23,17 @@ const AllLists = () => {
       >
         +
       </button>
-      <ul>{}</ul>
+      {lists.size === 0 ? (
+        <h2>No lists :\</h2>
+      ) : (
+        <ul>
+          {lists.map((list, key) => (
+            <li key={key}>
+              <Link to={`../list/${list.id}`}>{list.name}</Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 };

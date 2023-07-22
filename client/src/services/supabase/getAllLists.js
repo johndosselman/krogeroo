@@ -6,11 +6,11 @@ const getAllLists = async () => {
     const userId = await getUserId();
     const { data, error } = await supabase
       .from("list")
-      .select("id")
+      .select("*, location(*)")
       .eq("user_id", userId);
-    return { data, error };
+    return { lists: data, error };
   } catch (error) {
-    return { error };
+    return { lists: null, error };
   }
 };
 

@@ -2,8 +2,8 @@ import api from "../api/api";
 import { URL_LOCATIONS } from "../../../constants/constants";
 import getSupabaseToken from "../../supabase/getSupabaseToken";
 
-// Function to make request to locations endpoint
-export const getLocations = async (params) => {
+// Function to make request to Kroger locations endpoint
+export const getLocationList = async (params) => {
   try {
     const { chain, zipCode, latLong } = params;
     if (!chain) throw new Error("No chain provided");
@@ -14,10 +14,10 @@ export const getLocations = async (params) => {
       params: filteredParams,
       headers: { Authorization: `Bearer ${token}` },
     });
-    return { locations: data, error: null };
+    return { locationList: data, error: null };
   } catch (error) {
-    return { locations: null, error };
+    return { locationList: null, error };
   }
 };
 
-export default getLocations;
+export default getLocationList;

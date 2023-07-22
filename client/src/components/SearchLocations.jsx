@@ -4,27 +4,27 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { getLocations } from "../services/kroger/locations/getLocations";
+import { getLocationList } from "../services/kroger/locations/getLocationList";
 import StoreLocation from "./StoreLocation";
 import { useState } from "react";
 import { CHAINS, QUERY } from "../constants/constants";
-import createListByLocationId from "../services/supabase/createListByLocationId";
+import createListByLocation from "../services/supabase/createListByLocation";
 
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
   const urlSearchParams = url.searchParams;
   if (urlSearchParams.size === 0) {
-    return { locations: null, error: null };
+    return { locationList: null, error: null };
   }
   const queryParams = Object.fromEntries(urlSearchParams.entries());
-  const { locations, error } = await getLocations(queryParams);
-  return { locations, error };
+  const { locationList, error } = await getLocationList(queryParams);
+  return { locationList, error };
 };
 
 const SearchLocations = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { locations, error } = useLoaderData();
+  const { locationList, error } = useLoaderData();
   const [zipCode, setZipCode] = useState("");
   const [chainValue, setChainValue] = useState(CHAINS.KROGER);
 
@@ -52,8 +52,8 @@ const SearchLocations = () => {
     );
   };
 
-  const handleLocationSelect = async (locationId) => {
-    const { listId, error } = await createListByLocationId(locationId);
+  const handleLocationSelect = async (location) => {
+    const { listId, error } = await createListByLocation(location);
     // TODO: error handling
     if (error) {
       console.log(error);
@@ -95,17 +95,16 @@ const SearchLocations = () => {
         (error ? (
           // TODO: handle Error
           <h1>ERROR</h1>
-        ) : locations && locations.length > 0 ? (
-          locations.map((item, key) => (
+        ) : locationList && locationList.length > 0 ? (
+          locationList.map((location, key) => (
             <StoreLocation
               key={key}
-              name={item.name}
-              addressLine1={item.address.addressLine1}
-              city={item.address.city}
-              state={item.address.state}
-              zipCode={item.address.zipCode}
-              locationId={item.locationId}
-              handleClick={handleLocationSelect}
+              name={location.name}
+              addressLine1={location.address.addressLine1}
+              city={location.address.city}
+              state={location.address.state}
+              zipCode={location.address.zipCode}
+              handleClick={() => handleLocationSelect(location)}
             />
           ))
         ) : (
