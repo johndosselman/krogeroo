@@ -27,4 +27,5 @@ export const QUERY = {
 export const BASE_URL = "/api/v1/kroger";
 export const URL_LOCATIONS = "/locations";
 export const URL_PRODUCTS = "/products";
+export const URL_IMAGES = "/images";
 export const TIMEOUT = 5000;

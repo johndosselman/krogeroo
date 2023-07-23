@@ -1,9 +1,10 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useRevalidator } from "react-router-dom";
 import getListDataById from "../services/supabase/getListDataById";
 import { useEffect, useState } from "react";
 import getProductsByTerm from "../services/kroger/products/getProductsByTerm";
 import SearchProduct from "./SearchProduct";
 import updateListName from "../services/supabase/updateListName";
+import addItem from "../services/supabase/addItem";
 
 export const loader = async ({ params }) => {
   const { listId } = params;
@@ -13,11 +14,12 @@ export const loader = async ({ params }) => {
 
 const List = () => {
   const { listData, error } = useLoaderData();
-  const { name: initialListName, location, id } = listData;
-
+  const { id: listId, location, item, name } = listData;
+  const revalidator = useRevalidator();
   const [searchValue, setSearchValue] = useState("");
-  const [searchProducts, setSearchProducts] = useState([]);
-  const [listName, setListName] = useState(initialListName);
+  const [searchProductList, setSearchProductList] = useState([]);
+  const [itemList, setItemList] = useState(item);
+  const [listName, setListName] = useState(name);
   const [listNameTimeout, setListNameTimeout] = useState(null);
 
   const handleChangeListName = async (e) => {
@@ -28,7 +30,7 @@ const List = () => {
     }
     const timeout = setTimeout(async () => {
       const { error } = await updateListName({
-        listId: id,
+        listId: listId,
         listName: e.target.value,
       });
       // handle error
@@ -46,9 +48,27 @@ const List = () => {
     };
   }, [listNameTimeout]);
 
-  const handleSearchValueChange = (e) => {
-    setSearchValue(e.target.value);
+  const handleProductSearchSubmit = async (e) => {
+    e.preventDefault();
+    const { products, error } = await getProductsByTerm({
+      term: searchValue,
+      locationId: location.id,
+    });
+    if (error) {
+      // Handle error
+      console.log("Failed to retrieve product list from search");
+    }
+    if (products) {
+      setSearchProductList(products);
+    }
   };
+
+  const handleSelectItem = async ({ productId }) => {
+    const params = { productId, listId };
+    await addItem(params);
+    revalidator.revalidate();
+  };
+
   if (error) {
     // TODO: error handling
     return <h1>ERROR</h1>;
@@ -57,22 +77,27 @@ const List = () => {
     return (
       <>
         <input type="text" value={listName} onChange={handleChangeListName} />
-
-        <input
-          type="search"
-          value={searchValue}
-          onChange={handleSearchValueChange}
-        />
-        {searchProducts &&
-          searchProducts.map((item, key) => (
+        <form onSubmit={handleProductSearchSubmit}>
+          <input
+            type="search"
+            value={searchValue}
+            onChange={(e) => {
+              setSearchValue(e.target.value);
+            }}
+          />
+        </form>
+        {itemList &&
+          itemList.map((item, key) => <div key={key}>{item.product.id}</div>)}
+        {searchProductList &&
+          searchProductList.map((item, key) => (
             <SearchProduct
               key={key}
               productId={item.productId}
               description={item.description}
-              imageURL={
+              imageUrl={
                 item.images.find((image) => image.featured).sizes[0].url
               }
-              onSelect={{}}
+              handleClick={handleSelectItem}
             />
           ))}
       </>
