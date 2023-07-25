@@ -1,6 +1,7 @@
 import api from "../api/api";
 import { URL_PRODUCTS } from "../../../constants/constants";
 import getSupabaseToken from "../../supabase/getSupabaseToken";
+import Product from "../../../models/productModel";
 
 const getProductsByTerm = async (params) => {
   try {
@@ -16,7 +17,8 @@ const getProductsByTerm = async (params) => {
       headers: { Authorization: `Bearer ${token}` },
       params: { term, limit: 50, locationId },
     });
-    return { products: data, error: null };
+    const products = data.map((productData) => new Product(productData));
+    return { products, error: null };
   } catch (error) {
     // TODO: error handling
     return { products: null, error };

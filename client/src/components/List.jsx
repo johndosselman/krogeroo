@@ -42,7 +42,7 @@ const List = () => {
     e.preventDefault();
     const { products, error } = await getProductsByTerm({
       term: searchValue,
-      locationId: location.id,
+      locationId,
     });
     if (error) {
       // Handle error
@@ -76,12 +76,12 @@ const List = () => {
         <h3>No items</h3>
       )}
       {searchProductList &&
-        searchProductList.map((item, key) => (
+        searchProductList.map((product, key) => (
           <SearchProduct
             key={key}
-            productId={item.productId}
-            description={item.name}
-            imageUrl={item.imageUrl}
+            productId={product.productId}
+            name={product.name}
+            imageUrl={product.imageUrl}
           />
         ))}
     </>
