@@ -21,12 +21,9 @@ const addItem = async ({ productId, listId }) => {
     const { error } = await supabase
       .from("item")
       .upsert({ product_id: productId, list_id: listId, user_id: userId });
-    if (error) {
-      throw error;
-    }
+    return { error };
   } catch (error) {
-    // TODO: handle error
-    console.log(error);
+    return { error };
   }
 };
 

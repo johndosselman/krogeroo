@@ -1,8 +1,9 @@
+import List from "../../models/listModel";
 import supabase from "./supabaseClient";
 
-const getListDataById = async (listId) => {
+const getListById = async ({ listId }) => {
   try {
-    const { data: listData, error } = await supabase
+    const { data, error } = await supabase
       .from("list")
       .select(
         "id, name, location(id, address, chain), item(quantity, product(id, user_product(last_modified, is_favorite)))"
@@ -10,10 +11,10 @@ const getListDataById = async (listId) => {
       .eq("id", listId)
       .limit(1)
       .single();
-    console.log(listData);
-    return { listData, error };
+    const list = new List(data);
+    return { list, error };
   } catch (error) {
-    return { listData: null, error };
+    return { list: null, error };
   }
 };
-export default getListDataById;
+export default getListById;

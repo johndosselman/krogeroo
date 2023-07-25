@@ -4,7 +4,10 @@ import Error from "../components/Error";
 import Home from "../components/Home";
 import AllLists, { loader as allListsLoader } from "../components/AllLists";
 import NewList from "../components/NewList";
-import List, { loader as listLoader } from "../components/List";
+import List, {
+  loader as listLoader,
+  action as listAction,
+} from "../components/List";
 import SearchLocations, {
   loader as searchLocationsLoader,
 } from "../components/SearchLocations";
@@ -15,10 +18,7 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <Error />,
     children: [
-      {
-        path: "",
-        element: <Home />,
-      },
+      { path: "", element: <Home /> },
       {
         path: "lists",
         element: <AllLists />,
@@ -43,10 +43,12 @@ const router = createBrowserRouter([
           },
         ],
       },
+
       {
-        path: "list/:listId",
+        path: "lists/:listId",
         element: <List />,
         loader: listLoader,
+        action: listAction,
       },
     ],
   },

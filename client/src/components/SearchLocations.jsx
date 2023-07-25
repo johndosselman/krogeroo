@@ -59,7 +59,7 @@ const SearchLocations = () => {
       console.log(error);
     }
     if (listId) {
-      navigate(`/list/${listId}`);
+      navigate(`/lists/${listId}`);
     }
   };
   return (

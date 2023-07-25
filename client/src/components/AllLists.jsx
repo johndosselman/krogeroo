@@ -3,6 +3,7 @@ import getAllLists from "../services/supabase/getAllLists";
 
 export const loader = async () => {
   const { lists, error } = await getAllLists();
+  console.log(lists);
   return { lists, error };
 };
 
@@ -29,7 +30,7 @@ const AllLists = () => {
         <ul>
           {lists.map((list, key) => (
             <li key={key}>
-              <Link to={`../list/${list.id}`}>{list.name}</Link>
+              <Link to={`../lists/${list.listId}`}>{list.listName}</Link>
             </li>
           ))}
         </ul>
