@@ -6,7 +6,7 @@ const getListById = async ({ listId }) => {
     const { data, error } = await supabase
       .from("list")
       .select(
-        "id, name, location(id, address, chain), item(quantity, product(id, user_product(last_modified, is_favorite)))"
+        "id, name, location(id, address, chain), item(quantity, product(id, user_product(last_added, is_favorite)))"
       )
       .eq("id", listId)
       .limit(1)

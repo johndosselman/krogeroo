@@ -4,7 +4,8 @@ import getProductsByTerm from "../services/kroger/products/getProductsByTerm";
 import SearchProduct from "./SearchProduct";
 import addItem from "../services/supabase/addItem";
 import getListById from "../services/supabase/getListById";
-import getProductsByIds from "../services/kroger/products/getProductsByIds";
+import Item from "./Item";
+import ItemModal from "./ItemModal";
 
 export const loader = async ({ params }) => {
   const { listId } = params;
@@ -15,8 +16,12 @@ export const loader = async ({ params }) => {
     throw response.error;
   }
   const { list } = response;
-  const { error } = await list.getProductsInfo();
-  return { list, error };
+  if (list.items.length > 0) {
+    const { error } = await list.getProductsInfo();
+    return { list, error };
+  }
+
+  return { list };
 };
 
 export const action = async ({ request, params }) => {
@@ -33,6 +38,8 @@ const List = () => {
   const [searchProductList, setSearchProductList] = useState([]);
   const [itemList, setItemList] = useState(items);
   const [listName, setListName] = useState(name);
+  const [itemModalOpen, setItemModalOpen] = useState(false);
+  const [itemModalItem, setItemModalItem] = useState(null);
 
   useEffect(() => {
     setItemList(items);
@@ -53,6 +60,11 @@ const List = () => {
     }
   };
 
+  const handleShowItemModal = async (item) => {
+    setItemModalItem(item);
+    setItemModalOpen(true);
+  };
+
   if (error) {
     // TODO: error handling
     return <h1>ERROR</h1>;
@@ -60,6 +72,7 @@ const List = () => {
 
   return (
     <>
+      {itemModalItem && <ItemModal item={itemModalItem} open={itemModalOpen} />}
       <h2>{listName}</h2>
       <form onSubmit={handleProductSearchSubmit}>
         <input
@@ -71,18 +84,19 @@ const List = () => {
         />
       </form>
       {itemList && itemList.length > 0 ? (
-        itemList.map((item, key) => <div key={key}>{item.name}</div>)
+        itemList.map((item, key) => (
+          <Item
+            key={key}
+            item={item}
+            handleShowItemModal={handleShowItemModal}
+          />
+        ))
       ) : (
         <h3>No items</h3>
       )}
       {searchProductList &&
         searchProductList.map((product, key) => (
-          <SearchProduct
-            key={key}
-            productId={product.productId}
-            name={product.name}
-            imageUrl={product.imageUrl}
-          />
+          <SearchProduct key={key} product={product} />
         ))}
     </>
   );

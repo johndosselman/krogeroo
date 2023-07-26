@@ -49,8 +49,9 @@ const Root = () => {
   return (
     <>
       <Navbar />
-      {/* Children */}
-      <Outlet />
+      <div className="content-container">
+        <Outlet />
+      </div>
     </>
   );
 };

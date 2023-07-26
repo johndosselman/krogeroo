@@ -3,18 +3,16 @@ import getUserId from "./getUserId";
 // Function to create a list in supabase
 // TODO: Implement better error handling
 
-const createLocation = async (params) => {
-  const { locationId, address, chain } = params;
+const createLocation = async ({ locationId, address, chain }) => {
   const { error } = await supabase
     .from("location")
     .upsert({ id: locationId, address: address, chain: chain });
   if (error) throw error;
 };
 
-const createListByLocation = async (params) => {
+const createListByLocation = async ({ locationId, address, chain }) => {
   try {
-    await createLocation(params);
-    const { locationId, chain } = params;
+    await createLocation({ locationId, address, chain });
     // TODO: map chains to formatted chain names
     const name = `${chain.charAt(0).toUpperCase()}${chain
       .slice(1)

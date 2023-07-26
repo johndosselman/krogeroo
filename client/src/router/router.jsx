@@ -37,10 +37,6 @@ const router = createBrowserRouter([
             element: <SearchLocations />,
             loader: searchLocationsLoader,
           },
-          {
-            path: "blueprint/:blueprintId",
-            //element: <NewListByBlueprint />,
-          },
         ],
       },
 
