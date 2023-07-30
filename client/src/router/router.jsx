@@ -1,16 +1,16 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
-import Root from "../components/Root";
-import Error from "../components/Error";
-import Home from "../components/Home";
-import AllLists, { loader as allListsLoader } from "../components/AllLists";
-import NewList from "../components/NewList";
+import Root from "../routes/Root";
+import Error from "../routes/Error";
+import Home from "../routes/Home";
+import AllLists, { loader as allListsLoader } from "../routes/AllLists";
+import NewList from "../routes/NewList";
 import List, {
   loader as listLoader,
   action as listAction,
-} from "../components/List";
+} from "../routes/List";
 import SearchLocations, {
   loader as searchLocationsLoader,
-} from "../components/SearchLocations";
+} from "../routes/SearchLocations";
 
 const router = createBrowserRouter([
   {

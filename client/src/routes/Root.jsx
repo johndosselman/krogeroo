@@ -1,5 +1,5 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import Navbar from "./navbar";
+import Navbar from "../components/navbar";
 import { useEffect, useState } from "react";
 import supabase from "../services/supabase/supabaseClient";
 import { Auth } from "@supabase/auth-ui-react";

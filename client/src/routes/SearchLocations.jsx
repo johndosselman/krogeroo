@@ -5,7 +5,7 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { getLocationList } from "../services/kroger/locations/getLocationList";
-import StoreLocation from "./StoreLocation";
+import StoreLocation from "../components/StoreLocation";
 import { useState } from "react";
 import { CHAINS, QUERY } from "../constants/constants";
 import createListByLocation from "../services/supabase/createListByLocation";

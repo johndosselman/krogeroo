@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import useGetImage from "../hooks/useGetImage";
+import getProductImage from "../services/kroger/images/getProductImage";
+import feathers from "../assets/feathers-transformed.jpeg";
 
 const Item = ({ item, handleShowItemModal }) => {
   const {
@@ -19,8 +21,18 @@ const Item = ({ item, handleShowItemModal }) => {
     salePrice,
     size,
   } = item;
-  const [itemQuantity, setItemQuantity] = useState(quantity);
-  const { url, error } = useGetImage(imageUrl);
+
+  const [fetchedUrl, setFetchedUrl] = useState(null);
+
+  useEffect(() => {
+    return async () => {
+      const { url } = await getProductImage({
+        imageUrl: encodeURIComponent(imageUrl),
+      });
+      setFetchedUrl(url);
+    };
+  }, [imageUrl]);
+
   return (
     <div
       style={{
@@ -30,7 +42,24 @@ const Item = ({ item, handleShowItemModal }) => {
         margin: "1rem",
       }}
     >
-      {url ? <img src={url} alt={name} /> : <p>Product image unavailable</p>}
+      <div
+        style={{
+          aspectRatio: 1,
+          backgroundColor: "pink",
+          width: "100px",
+        }}
+      >
+        <img
+          src={fetchedUrl}
+          alt={name}
+          style={{
+            display: fetchedUrl ? "block" : "none",
+            aspectRatio: 1,
+            width: "100px",
+          }}
+        />
+      </div>
+
       <p>{name}</p>
       <p>{quantity}</p>
       <p>Location: {aisleLocation}</p>

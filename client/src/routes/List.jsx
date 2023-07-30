@@ -1,11 +1,11 @@
 import { useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getProductsByTerm from "../services/kroger/products/getProductsByTerm";
-import SearchProduct from "./SearchProduct";
+import SearchProduct from "../components/SearchProduct";
 import addItem from "../services/supabase/addItem";
 import getListById from "../services/supabase/getListById";
-import Item from "./Item";
-import ItemModal from "./ItemModal";
+import Item from "../components/Item";
+import ItemModal from "../components/ItemModal";
 
 export const loader = async ({ params }) => {
   const { listId } = params;
@@ -60,9 +60,14 @@ const List = () => {
     }
   };
 
-  const handleShowItemModal = async (item) => {
+  const handleOpenItemModal = (item) => {
     setItemModalItem(item);
     setItemModalOpen(true);
+  };
+
+  const handleCLoseItemModal = () => {
+    setItemModalItem(null);
+    setItemModalOpen(false);
   };
 
   if (error) {
@@ -72,7 +77,13 @@ const List = () => {
 
   return (
     <>
-      {itemModalItem && <ItemModal item={itemModalItem} open={itemModalOpen} />}
+      {itemModalItem && (
+        <ItemModal
+          item={itemModalItem}
+          open={itemModalOpen}
+          closeModal={handleCLoseItemModal}
+        />
+      )}
       <h2>{listName}</h2>
       <form onSubmit={handleProductSearchSubmit}>
         <input
@@ -88,7 +99,7 @@ const List = () => {
           <Item
             key={key}
             item={item}
-            handleShowItemModal={handleShowItemModal}
+            handleShowItemModal={handleOpenItemModal}
           />
         ))
       ) : (
