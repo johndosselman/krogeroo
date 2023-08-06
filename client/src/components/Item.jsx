@@ -1,8 +1,3 @@
-import { Suspense, useEffect, useState } from "react";
-import useGetImage from "../hooks/useGetImage";
-import getProductImage from "../services/kroger/images/getProductImage";
-import feathers from "../assets/feathers-transformed.jpeg";
-
 const Item = ({ item, handleShowItemModal }) => {
   const {
     productId,
@@ -22,17 +17,6 @@ const Item = ({ item, handleShowItemModal }) => {
     size,
   } = item;
 
-  const [fetchedUrl, setFetchedUrl] = useState(null);
-
-  useEffect(() => {
-    return async () => {
-      const { url } = await getProductImage({
-        imageUrl: encodeURIComponent(imageUrl),
-      });
-      setFetchedUrl(url);
-    };
-  }, [imageUrl]);
-
   return (
     <div
       style={{
@@ -45,15 +29,15 @@ const Item = ({ item, handleShowItemModal }) => {
       <div
         style={{
           aspectRatio: 1,
-          backgroundColor: "pink",
+          backgroundColor: "lightgray",
           width: "100px",
         }}
       >
         <img
-          src={fetchedUrl}
+          src={imageUrl}
           alt={name}
           style={{
-            display: fetchedUrl ? "block" : "none",
+            display: imageUrl ? "block" : "none",
             aspectRatio: 1,
             width: "100px",
           }}

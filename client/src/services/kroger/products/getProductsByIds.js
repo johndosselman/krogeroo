@@ -1,7 +1,7 @@
 import api from "../api/api";
 import { URL_PRODUCTS } from "../../../constants/constants";
 import getSupabaseToken from "../../supabase/getSupabaseToken";
-import Product from "../../../models/productModel";
+import Product from "../../../classes/product";
 
 const getProductsByIds = async ({ productIds, locationId }) => {
   try {

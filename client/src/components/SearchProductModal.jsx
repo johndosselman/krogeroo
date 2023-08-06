@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form } from "react-router-dom";
 
-const ItemModal = ({ item, open, closeModal, removeItem }) => {
+const SearchProductModal = ({ item, open, closeModal, removeItem }) => {
   const {
     productId,
     isFavorite,
@@ -105,4 +105,4 @@ const ItemModal = ({ item, open, closeModal, removeItem }) => {
   );
 };
 
-export default ItemModal;
+export default SearchProductModal;

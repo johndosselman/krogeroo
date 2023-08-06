@@ -1,32 +1,37 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
-import Root from "../routes/Root";
-import Error from "../routes/Error";
-import Home from "../routes/Home";
-import AllLists, { loader as allListsLoader } from "../routes/AllLists";
-import NewList from "../routes/NewList";
-import List, {
+import RootRoute from "../routes/RootRoute";
+import ErrorRoute from "../routes/ErrorRoute";
+import HomeRoute from "../routes/HomeRoute";
+import ListsRoute, { loader as listsLoader } from "../routes/ListsRoute";
+import NewListRoute from "../routes/NewListRoute";
+import ListRoute, {
   loader as listLoader,
   action as listAction,
-} from "../routes/List";
-import SearchLocations, {
+} from "../routes/ListRoute";
+import SearchLocationsRoute, {
   loader as searchLocationsLoader,
-} from "../routes/SearchLocations";
+} from "../routes/SearchLocationsRoute";
+import AddItemRoute, {
+  action as addItemAction,
+  loader as addItemLoader,
+} from "../routes/AddItemRoute";
+import ListItemsRoute from "../routes/ListItemsRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
-    errorElement: <Error />,
+    element: <RootRoute />,
+    errorElement: <ErrorRoute />,
     children: [
-      { path: "", element: <Home /> },
+      { path: "", element: <HomeRoute /> },
       {
         path: "lists",
-        element: <AllLists />,
-        loader: allListsLoader,
+        element: <ListsRoute />,
+        loader: listsLoader,
       },
       {
         path: "lists/new",
-        element: <NewList />,
+        element: <NewListRoute />,
         children: [
           {
             index: true,
@@ -34,7 +39,7 @@ const router = createBrowserRouter([
           },
           {
             path: "search",
-            element: <SearchLocations />,
+            element: <SearchLocationsRoute />,
             loader: searchLocationsLoader,
           },
         ],
@@ -42,9 +47,22 @@ const router = createBrowserRouter([
 
       {
         path: "lists/:listId",
-        element: <List />,
+        element: <ListRoute />,
         loader: listLoader,
         action: listAction,
+        id: "list",
+        children: [
+          {
+            path: "",
+            element: <ListItemsRoute />,
+          },
+          {
+            path: "add-item",
+            element: <AddItemRoute />,
+            loader: addItemLoader,
+            action: addItemAction,
+          },
+        ],
       },
     ],
   },

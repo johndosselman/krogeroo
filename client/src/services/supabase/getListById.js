@@ -1,4 +1,4 @@
-import List from "../../models/listModel";
+import List from "../../classes/dbList";
 import supabase from "./supabaseClient";
 
 const getListById = async ({ listId }) => {

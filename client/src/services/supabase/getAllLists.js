@@ -1,4 +1,4 @@
-import List from "../../models/listModel";
+import DbList from "../../classes/dbList";
 import getUserId from "./getUserId";
 import supabase from "./supabaseClient";
 
@@ -11,10 +11,10 @@ const getAllLists = async () => {
         "id, name, location(id, address, chain), item(quantity, product(id, user_product(last_added, is_favorite)))"
       )
       .eq("user_id", userId);
-    const lists = data.map((listData) => new List(listData));
-    return { lists, error };
+    const dbLists = data.map((listData) => new DbList(listData));
+    return { dbLists, error };
   } catch (error) {
-    return { lists: null, error };
+    return { dbLists: null, error };
   }
 };
 

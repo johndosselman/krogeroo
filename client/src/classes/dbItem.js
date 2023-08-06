@@ -1,4 +1,4 @@
-class ListItem {
+class DbItem {
   constructor(data) {
     this.productId = data.product.id;
     this.quantity = data.quantity;
@@ -7,4 +7,4 @@ class ListItem {
   }
 }
 
-export default ListItem;
+export default DbItem;

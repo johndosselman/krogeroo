@@ -1,11 +1,10 @@
 import api from "../api/api";
 import { URL_PRODUCTS } from "../../../constants/constants";
 import getSupabaseToken from "../../supabase/getSupabaseToken";
-import Product from "../../../models/productModel";
+import Product from "../../../classes/product";
 
-const getProductsByTerm = async (params) => {
+const getSearchProducts = async ({ term, locationId }) => {
   try {
-    const { term, locationId } = params;
     if (!term) {
       throw new Error("No term provided");
     }
@@ -17,12 +16,12 @@ const getProductsByTerm = async (params) => {
       headers: { Authorization: `Bearer ${token}` },
       params: { term, limit: 50, locationId },
     });
-    const products = data.map((productData) => new Product(productData));
-    return { products, error: null };
+    const searchProducts = data.map((productData) => new Product(productData));
+    return { searchProducts, error: null };
   } catch (error) {
     // TODO: error handling
-    return { products: null, error };
+    return { searchProducts: null, error };
   }
 };
 
-export default getProductsByTerm;
+export default getSearchProducts;
